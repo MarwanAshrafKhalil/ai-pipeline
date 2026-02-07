@@ -1,0 +1,6 @@
+[
+  { "id": "data_source_1", "label": "Data Source", "type": "data_source" },
+  { "id": "transformer_1", "label": "Transformer", "type": "transformer" },
+  { "id": "model_1", "label": "Model", "type": "model" },
+  { "id": "sink_1", "label": "Sink", "type": "sink" }
+]
