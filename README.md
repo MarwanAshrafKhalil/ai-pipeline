@@ -4,18 +4,19 @@ A production-style web app for building and running AI pipelines as a **Directed
 
 ## Quick start
 
-**With Docker (recommended)**
+**With Docker (recommended)** — all dependencies are isolated in containers (no system installs required except Docker).
 
 ```bash
-./run.sh start
+./run.sh --action start
 ```
 
-- Frontend: http://localhost:3000  
-- Backend API: http://localhost:4000  
+Builds and launches Frontend + Backend. Frontend: http://localhost:3000 · Backend: http://localhost:4000
 
 ```bash
-./run.sh terminate   # stop and remove containers
+./run.sh --action terminate
 ```
+
+Stops and removes containers, volumes, and networks cleanly. Short form: `./run.sh start` and `./run.sh terminate` also work.
 
 **Local development**
 

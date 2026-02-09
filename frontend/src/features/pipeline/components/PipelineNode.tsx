@@ -2,6 +2,7 @@ import { memo, useState, useCallback, useEffect } from "react";
 import { Handle, Position, type NodeProps } from "reactflow";
 import type { PipelineNodeData } from "@/types/pipeline";
 import type { NodeExecutionStatus } from "@/types/execution";
+import { NodeTypeIcon } from "@/components/NodeTypeIcon";
 import { usePipelineStore } from "../store/pipelineStore";
 
 type Data = PipelineNodeData & { status?: NodeExecutionStatus };
@@ -84,8 +85,9 @@ function PipelineNodeInner({ id, data }: NodeProps<Data>) {
           <line x1="14" y1="11" x2="14" y2="17" />
         </svg>
       </button>
-      <div className="text-xs font-medium uppercase text-slate-500">
-        {data.nodeTypeKind}
+      <div className="flex items-center gap-1.5 text-xs font-medium uppercase text-slate-500">
+        <NodeTypeIcon kind={data.nodeTypeKind} />
+        <span>{data.nodeTypeKind}</span>
       </div>
       {editing ? (
         <input

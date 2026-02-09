@@ -1,6 +1,7 @@
 import type { NodeType } from "@/types/node";
 import { useNodeTypes } from "../hooks/useNodeTypes";
 import { Button } from "@/components/Button";
+import { NodeTypeIcon } from "@/components/NodeTypeIcon";
 
 function onDragStart(e: React.DragEvent, nodeType: NodeType) {
   const payload = JSON.stringify(nodeType);
@@ -44,9 +45,10 @@ export function NodePalette() {
             key={nt.id}
             draggable
             onDragStart={(e) => onDragStart(e, nt)}
-            className="cursor-grab rounded border border-slate-200 bg-slate-50 px-2 py-1.5 text-sm text-slate-800 hover:bg-slate-100 active:cursor-grabbing"
+            className="flex items-center gap-2 cursor-grab rounded border border-slate-200 bg-slate-50 px-2 py-1.5 text-sm text-slate-800 hover:bg-slate-100 active:cursor-grabbing"
           >
-            {nt.label}
+            <NodeTypeIcon kind={nt.type} />
+            <span>{nt.label}</span>
           </li>
         ))}
       </ul>
