@@ -1,7 +1,7 @@
-import { usePipelineStore } from '../store/pipelineStore';
-import { useRunPipeline } from '../hooks/useRunPipeline';
-import { saveDraft } from '@/services/draft';
-import { Button } from '@/shared/components/Button';
+import { usePipelineStore } from "../store/pipelineStore";
+import { useRunPipeline } from "../hooks/useRunPipeline";
+import { saveDraft } from "@/services/draft";
+import { Button } from "@/components/Button";
 
 export function ExecutionStatus() {
   const nodes = usePipelineStore((s) => s.nodes);
@@ -22,19 +22,13 @@ export function ExecutionStatus() {
       >
         Save draft
       </Button>
-      <Button
-        variant="primary"
-        disabled={!canRun}
-        onClick={() => run()}
-      >
-        {isRunning ? 'Running…' : 'Run pipeline'}
+      <Button variant="primary" disabled={!canRun} onClick={() => run()}>
+        {isRunning ? "Running…" : "Run pipeline"}
       </Button>
       <span
-        className={`text-sm ${
-          isRunning ? 'text-amber-600' : 'text-slate-500'
-        }`}
+        className={`text-sm ${isRunning ? "text-amber-600" : "text-slate-500"}`}
       >
-        {isRunning ? 'Running…' : 'Idle'}
+        {isRunning ? "Running…" : "Idle"}
       </span>
       {connectionError && (
         <div className="flex items-center gap-2 rounded border border-amber-200 bg-amber-50 px-2 py-1 text-sm text-amber-800">

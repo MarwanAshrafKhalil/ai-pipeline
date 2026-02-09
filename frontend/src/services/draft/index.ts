@@ -1,10 +1,10 @@
 /**
  * Draft persistence: save/load pipeline to localStorage with lifetime.
  */
-import type { PipelineNode, PipelineEdge } from '@/types/pipeline';
+import type { PipelineNode, PipelineEdge } from "@/types/pipeline";
 
-export const DRAFT_KEY = 'pipeline-draft';
-export const DRAFT_LIFETIME_MS = 24 * 60 * 60 * 1000;
+export const DRAFT_KEY = "pipeline-draft";
+export const DRAFT_LIFETIME_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 export interface DraftPayload {
   nodes: PipelineNode[];
@@ -22,7 +22,10 @@ function getItem(): DraftPayload | null {
   }
 }
 
-export function saveDraft(payload: { nodes: PipelineNode[]; edges: PipelineEdge[] }): void {
+export function saveDraft(payload: {
+  nodes: PipelineNode[];
+  edges: PipelineEdge[];
+}): void {
   try {
     const data: DraftPayload = {
       nodes: payload.nodes,
@@ -31,11 +34,14 @@ export function saveDraft(payload: { nodes: PipelineNode[]; edges: PipelineEdge[
     };
     localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
   } catch {
-    // ignore quota or parse errors
+    // ignore
   }
 }
 
-export function loadDraft(): { nodes: PipelineNode[]; edges: PipelineEdge[] } | null {
+export function loadDraft(): {
+  nodes: PipelineNode[];
+  edges: PipelineEdge[];
+} | null {
   const data = getItem();
   if (!data) return null;
   if (Date.now() - data.savedAt > DRAFT_LIFETIME_MS) {

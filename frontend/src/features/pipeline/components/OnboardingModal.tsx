@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { usePipelineStore } from "../store/pipelineStore";
-import { Button } from "@/shared/components/Button";
+import { Button } from "@/components/Button";
 
 const ONBOARDING_KEY = "pipeline-onboarding-dismissed";
 
@@ -23,7 +23,7 @@ function setDismissed(): void {
 export function OnboardingModal() {
   const dismissed = usePipelineStore((s) => s.onboardingDismissed);
   const setOnboardingDismissed = usePipelineStore(
-    (s) => s.setOnboardingDismissed
+    (s) => s.setOnboardingDismissed,
   );
 
   const [open, setOpen] = useState(() => !isDismissed());
@@ -45,7 +45,6 @@ export function OnboardingModal() {
     >
       <div
         className="max-w-md rounded-lg bg-white p-5 shadow-xl"
-        //explain this code - not needed
         onClick={(e) => e.stopPropagation()}
       >
         <h2

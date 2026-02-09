@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { hasValidDraft, loadDraft, clearDraft } from '@/services/draft';
-import { usePipelineStore } from '../store/pipelineStore';
-import { Button } from '@/shared/components/Button';
+import { useEffect, useState } from "react";
+import { hasValidDraft, loadDraft, clearDraft } from "@/services/draft";
+import { usePipelineStore } from "../store/pipelineStore";
+import { Button } from "@/components/Button";
 
 export function DraftModal() {
   const [open, setOpen] = useState(false);
@@ -37,7 +37,10 @@ export function DraftModal() {
         className="max-w-sm rounded-lg bg-white p-4 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 id="draft-modal-title" className="text-lg font-semibold text-slate-800">
+        <h2
+          id="draft-modal-title"
+          className="text-lg font-semibold text-slate-800"
+        >
           Restore draft?
         </h2>
         <p className="mt-2 text-sm text-slate-600">

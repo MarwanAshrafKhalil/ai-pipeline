@@ -16,7 +16,7 @@ export function useRunPipeline() {
     clearLogs();
     setRunning(true);
     await runPipeline(
-      nodes,
+      nodes.map((n) => ({ id: n.id, label: n.data?.label })),
       edges.map((e) => ({ source: e.source, target: e.target })),
       {
         onNodeState: (u) => setNodeState(u.nodeId, { status: u.status, error: u.error }),

@@ -34,7 +34,12 @@ export function LogsPanel() {
                 className={levelStyles[entry.level] ?? levelStyles.info}
               >
                 <span className="text-slate-400">
-                  [{new Date(entry.timestamp).toISOString().slice(11, 23)}] {entry.nodeId}:
+                  [{new Date(entry.timestamp).toISOString().slice(11, 23)}]{' '}
+                  {entry.nodeId
+                    ? entry.nodeLabel
+                      ? `${entry.nodeId} (${entry.nodeLabel}):`
+                      : `${entry.nodeId}:`
+                    : 'Pipeline:'}
                 </span>{' '}
                 {entry.message}
               </li>

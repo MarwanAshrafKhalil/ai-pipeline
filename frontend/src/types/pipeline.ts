@@ -2,10 +2,12 @@
  * Pipeline graph domain models (store shape; can be mapped to React Flow).
  */
 
+import { NodeTypeKind } from "./node";
+
 export interface PipelineNodeData {
   typeId: string;
   label: string;
-  nodeTypeKind: string;
+  nodeTypeKind: NodeTypeKind;
 }
 
 export interface PipelineNode {

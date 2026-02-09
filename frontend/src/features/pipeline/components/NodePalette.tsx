@@ -1,6 +1,6 @@
 import type { NodeType } from "@/types/node";
 import { useNodeTypes } from "../hooks/useNodeTypes";
-import { Button } from "@/shared/components/Button";
+import { Button } from "@/components/Button";
 
 function onDragStart(e: React.DragEvent, nodeType: NodeType) {
   const payload = JSON.stringify(nodeType);
