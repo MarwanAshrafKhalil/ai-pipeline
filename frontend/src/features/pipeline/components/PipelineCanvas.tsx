@@ -43,17 +43,19 @@ function CanvasInner() {
   const runningNodeId =
     Object.entries(nodeStates).find(([, s]) => s.status === "running")?.[0] ??
     null;
+
   const reactFlowNodes = useMemo(
     () => toReactFlowNodes(nodes, nodeStates),
-    [nodes, nodeStates]
+    [nodes, nodeStates],
   );
+
   const reactFlowEdges = useMemo(
     () =>
       toReactFlowEdges(edges, runningNodeId).map((e) => ({
         ...e,
         type: "animated" as const,
       })),
-    [edges, runningNodeId]
+    [edges, runningNodeId],
   );
 
   const onConnect: OnConnect = useCallback(
@@ -66,7 +68,7 @@ function CanvasInner() {
           })),
           edges: edges.map((e) => ({ source: e.source, target: e.target })),
         },
-        { source: params.source ?? "", target: params.target ?? "" }
+        { source: params.source ?? "", target: params.target ?? "" },
       );
       if (!result.valid) {
         setConnectionError(result.reason ?? "Invalid connection");
@@ -82,7 +84,7 @@ function CanvasInner() {
       };
       addEdgeToStore(newEdge);
     },
-    [nodes, edges, addEdgeToStore, setConnectionError]
+    [nodes, edges, addEdgeToStore, setConnectionError],
   );
 
   const onNodesChange = useCallback(
@@ -91,20 +93,22 @@ function CanvasInner() {
       const currentFlowNodes = toReactFlowNodes(state.nodes, state.nodeStates);
       const nextNodes = applyNodeChanges(
         changes,
-        currentFlowNodes as Node<unknown>[]
+        currentFlowNodes as Node<unknown>[],
       ) as Node<{ typeId: string; label: string; nodeTypeKind: string }>[];
       if (nextNodes.length < currentFlowNodes.length) {
         const removedIds = new Set(
           (changes as Array<{ type: string; id?: string }>)
             .filter((c) => c.type === "remove" && c.id)
-            .map((c) => c.id as string)
+            .map((c) => c.id as string),
         );
         const currentIds = new Set(currentFlowNodes.map((n) => n.id));
         const nextIds = new Set(nextNodes.map((n) => n.id));
         const missingIds = [...currentIds].filter((id) => !nextIds.has(id));
         const allRemovedExplicit = missingIds.every((id) => removedIds.has(id));
+
         if (!allRemovedExplicit) return;
       }
+
       const nextPipelineNodes = nextNodes.map((n) => ({
         id: n.id,
         type: n.type ?? "pipelineNode",
@@ -121,14 +125,14 @@ function CanvasInner() {
             state.nodes[i].position.y === n.position.y &&
             state.nodes[i].data.label === n.data.label &&
             state.nodes[i].data.typeId === n.data.typeId &&
-            state.nodes[i].data.nodeTypeKind === n.data.nodeTypeKind
+            state.nodes[i].data.nodeTypeKind === n.data.nodeTypeKind,
         )
       ) {
         return;
       }
       setNodes(nextPipelineNodes);
     },
-    [setNodes]
+    [setNodes],
   );
 
   const onEdgesChange = useCallback(
@@ -136,10 +140,10 @@ function CanvasInner() {
       const state = usePipelineStore.getState();
       const runningId =
         Object.entries(state.nodeStates).find(
-          ([, s]) => s.status === "running"
+          ([, s]) => s.status === "running",
         )?.[0] ?? null;
       const currentFlowEdges = toReactFlowEdges(state.edges, runningId).map(
-        (e) => ({ ...e, type: "animated" as const })
+        (e) => ({ ...e, type: "animated" as const }),
       );
       const nextEdges = applyEdgeChanges(changes, currentFlowEdges);
       const nextPipelineEdges = nextEdges.map((e) => ({
@@ -156,14 +160,14 @@ function CanvasInner() {
             state.edges[i] &&
             state.edges[i].id === e.id &&
             state.edges[i].source === e.source &&
-            state.edges[i].target === e.target
+            state.edges[i].target === e.target,
         )
       ) {
         return;
       }
       setEdges(nextPipelineEdges);
     },
-    [setEdges]
+    [setEdges],
   );
 
   const onDrop = useCallback(
@@ -211,7 +215,7 @@ function CanvasInner() {
         console.error("[PipelineCanvas] onDrop error", err);
       }
     },
-    [screenToFlowPosition, addNodeToStore]
+    [screenToFlowPosition, addNodeToStore],
   );
 
   const onDragOver = useCallback((e: React.DragEvent) => {
